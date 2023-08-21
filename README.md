@@ -79,10 +79,16 @@ The `PaystackStandard.checkout` method returns type `CheckoutResponse` which con
 ```dart
 
 PaystackStandard(context).checkout(checkoutUrl: "<authorization_url>").then((response){
-  // here check for success - verify transaction status with your backend server
+// here check for success - verify transaction status with your backend server
 });
 
 ```
 
 ## ScreenShots
-NB: 
+![paystack_bank](https://github.com/sunday-okpoluaefe/paystack_standard/assets/63934292/54991b9f-3a77-4965-97c8-621ef6dbeb52)
+![paystack_cancel](https://github.com/sunday-okpoluaefe/paystack_standard/assets/63934292/bc681e57-d3f6-4e6d-9d1f-26929fb611b2)
+![paystack_card](https://github.com/sunday-okpoluaefe/paystack_standard/assets/63934292/b2a87c96-4e26-4a87-86bc-2fda63d840fd)
+![paystack_home](https://github.com/sunday-okpoluaefe/paystack_standard/assets/63934292/6beb7c7a-2167-47ec-9265-9467e599d172)
+![paystack_transfer](https://github.com/sunday-okpoluaefe/paystack_standard/assets/63934292/ee470895-dbc1-4b20-8dc6-11306fcb0d8b)
+![paystack_ussd](https://github.com/sunday-okpoluaefe/paystack_standard/assets/63934292/b51d485c-3796-439e-8ff8-37214c96ffc0)
+
