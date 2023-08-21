@@ -14,7 +14,7 @@ class XWarningDialog extends StatelessWidget {
       required this.onNegative,
       required this.onPositive,
       required this.description,
-      this.negative = "Cancel",
+      this.negative = "No",
       required this.positive,
       required this.title});
 
@@ -28,7 +28,7 @@ class XWarningDialog extends StatelessWidget {
               style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.red),
+                  color: Colors.black),
             ),
             Container(
               height: 16,
@@ -53,12 +53,12 @@ class XWarningDialog extends StatelessWidget {
                     positive,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
+                        color: Colors.black,
                         fontSize: 16),
                   ),
                 ),
                 Container(
-                  width: 24,
+                  width: 32,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -68,7 +68,7 @@ class XWarningDialog extends StatelessWidget {
                   child: Text(negative,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.grey,
+                          color: Colors.black87,
                           fontSize: 16)),
                 )
               ],

@@ -103,7 +103,7 @@ class _State extends State<PaystackCheckout> {
           onPositive: () => _exit(result: CheckoutResponse(reference: "")),
           description:
           "Are you sure? You are about to cancel the transaction",
-          positive: "Ok",
+          positive: "Yes",
           title: "Cancel Transaction?"))
       .show();
 
