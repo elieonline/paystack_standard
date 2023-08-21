@@ -4,7 +4,7 @@ import 'package:paystack_standard/src/component/xwarning_dialog.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../model/checkout_response.dart';
+import 'package:paystack_standard/src/model/checkout_response.dart';
 
 const paystackColor = Color(0xFF09A5DB);
 
