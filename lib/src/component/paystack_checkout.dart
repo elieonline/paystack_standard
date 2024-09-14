@@ -126,12 +126,8 @@ class _State extends State<PaystackCheckout> {
                   )
                 ])),
         body: PopScope(
-          canPop: false,
-          onPopInvoked: (val) {
+          onPopInvoked: (data) {
             _showCancelWarning();
-            if (val) {
-              return;
-            }
           },
           child: SafeArea(
             child: Column(
