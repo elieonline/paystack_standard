@@ -1,6 +1,6 @@
 name: paystack_standard
 description: Paystack Standard Plugin
-version: 0.0.6
+version: 1.0.0
 homepage: https://github.com/sunday-okpoluaefe/paystack_standard
 
 environment:

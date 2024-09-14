@@ -62,8 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  PaystackStandard(context)
-                      .checkout(checkoutUrl: "https://checkout.paystack.com/c3inl5xppg4z5qo");
+                  PaystackStandard(context: context, checkoutUrl: 'https://checkout.paystack.com/c3inl5xppg4z5qo').bottomSheet();
                 },
                 child: Text(
                   "Pay 1000N",

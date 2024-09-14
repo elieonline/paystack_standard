@@ -98,43 +98,48 @@ class _State extends State<PaystackCheckout> {
       Navigator.of(context).pop(result);
 
   _showCancelWarning() => XDialog(context,
-      child: XWarningDialog(
-          onNegative: () {},
-          onPositive: () => _exit(result: CheckoutResponse(reference: "")),
-          description:
-          "Are you sure? You are about to cancel the transaction",
-          positive: "Yes",
-          title: "Cancel Transaction?"))
+          child: XWarningDialog(
+              onNegative: () {},
+              onPositive: () => _exit(result: CheckoutResponse(reference: "")),
+              description:
+                  "Are you sure? You are about to cancel the transaction",
+              positive: "Yes",
+              title: "Cancel Transaction?"))
       .show();
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          title:
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            const Text(
-              "Paystack Checkout",
-              style: TextStyle(color: Colors.black),
-            ),
-            GestureDetector(
-              onTap: () => _showCancelWarning(),
-              child: const Icon(Icons.close),
-            )
-          ])),
-      body: WillPopScope(
-          onWillPop: () async => _showCancelWarning(),
-          child: SafeArea(
-              child: Column(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
+            title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (_percent < 1)
-                    LinearPercentIndicator(
-                        percent: _percent,
-                        lineHeight: 2,
-                        progressColor: paystackColor),
-                  Expanded(child: WebViewWidget(controller: _controller))
-                ],
-              ))));
+                  const Text(
+                    "Paystack Checkout",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  GestureDetector(
+                    onTap: () => _showCancelWarning(),
+                    child: const Icon(Icons.close),
+                  )
+                ])),
+        body: PopScope(
+          canPop: false,
+          onPopInvoked: (val) => _showCancelWarning(),
+          child: SafeArea(
+            child: Column(
+              children: [
+                if (_percent < 1)
+                  LinearPercentIndicator(
+                      percent: _percent,
+                      lineHeight: 2,
+                      progressColor: paystackColor),
+                Expanded(child: WebViewWidget(controller: _controller))
+              ],
+            ),
+          ),
+        ),
+      );
 }
