@@ -7,17 +7,28 @@ class PaystackStandard {
   final BuildContext context;
   final String checkoutUrl;
 
-  PaystackStandard._internal({required this.context, required this.checkoutUrl});
+  PaystackStandard._internal(
+      {required this.context, required this.checkoutUrl});
 
-  factory PaystackStandard({required BuildContext context, required String checkoutUrl}) {
+  factory PaystackStandard(
+      {required BuildContext context, required String checkoutUrl}) {
     if (!Uri.parse(checkoutUrl).hasAbsolutePath) {
       throw const FormatException("Invalid checkout URL");
     }
-    return PaystackStandard._internal(context: context, checkoutUrl: checkoutUrl);
+    return PaystackStandard._internal(
+        context: context, checkoutUrl: checkoutUrl);
   }
 
-  Future<CheckoutResponse> checkout() async {
-    return await PageRouter.gotoWidget(PaystackCheckout(checkoutUrl: checkoutUrl), context);
+  Future<CheckoutResponse> checkout(
+    Widget Function({required Widget child, void Function()? onCanceled})?
+        viewBuilder,
+  ) async {
+    return await PageRouter.gotoWidget(
+        PaystackCheckout(
+          checkoutUrl: checkoutUrl,
+          viewBuilder: viewBuilder,
+        ),
+        context);
   }
 
   Future<CheckoutResponse?> dialog({
@@ -25,7 +36,8 @@ class PaystackStandard {
     Color? barrierColor,
     bool useSafeArea = true,
     RouteSettings? routeSettings,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transitionBuilder,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transitionBuilder,
     Duration? transitionDuration,
   }) {
     return showDialog<CheckoutResponse>(
@@ -45,7 +57,8 @@ class PaystackStandard {
     Color? barrierColor,
     BoxConstraints? constraints,
     bool useSafeArea = false,
-    Widget Function({required Widget child, void Function()? onCanceled})? viewBuilder,
+    Widget Function({required Widget child, void Function()? onCanceled})?
+        viewBuilder,
   }) {
     return showModalBottomSheet<CheckoutResponse>(
       context: context,
@@ -58,7 +71,8 @@ class PaystackStandard {
       barrierColor: barrierColor,
       constraints: constraints,
       useSafeArea: useSafeArea,
-      builder: (_) => PaystackCheckout(checkoutUrl: checkoutUrl, viewBuilder: viewBuilder),
+      builder: (_) =>
+          PaystackCheckout(checkoutUrl: checkoutUrl, viewBuilder: viewBuilder),
     );
   }
 }
