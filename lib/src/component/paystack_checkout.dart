@@ -10,8 +10,10 @@ const paystackColor = Color(0xFF09A5DB);
 
 class PaystackCheckout extends StatefulWidget {
   final String checkoutUrl;
+  final Widget Function({required Widget child, VoidCallback? onCanceled})? viewBuilder;
 
-  const PaystackCheckout({super.key, required this.checkoutUrl});
+  const PaystackCheckout(
+      {super.key, required this.checkoutUrl, this.viewBuilder});
 
   @override
   State<StatefulWidget> createState() => _State();
@@ -108,39 +110,50 @@ class _State extends State<PaystackCheckout> {
       .show();
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Paystack Checkout",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  GestureDetector(
-                    onTap: () => _showCancelWarning(),
-                    child: const Icon(Icons.close),
-                  )
-                ])),
-        body: PopScope(
-          onPopInvoked: (data) {
-            _showCancelWarning();
-          },
-          child: SafeArea(
-            child: Column(
-              children: [
-                if (_percent < 1)
-                  LinearPercentIndicator(
-                      percent: _percent,
-                      lineHeight: 2,
-                      progressColor: paystackColor),
-                Expanded(child: WebViewWidget(controller: _controller))
-              ],
-            ),
-          ),
+  Widget build(BuildContext context) {
+    final body = WillPopScope(
+      onWillPop: () async {
+        _showCancelWarning();
+        return false;
+      },
+      child: SafeArea(
+        child: Column(
+          children: [
+            if (_percent < 1)
+              LinearPercentIndicator(
+                  percent: _percent,
+                  lineHeight: 2,
+                  progressColor: paystackColor),
+            Expanded(child: WebViewWidget(controller: _controller))
+          ],
         ),
-      );
+      ),
+    );
+
+    if (widget.viewBuilder != null) {
+      widget.viewBuilder!(child: body, onCanceled: _showCancelWarning());
+    }
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              "Paystack Checkout",
+              style: TextStyle(color: Colors.black),
+            ),
+            GestureDetector(
+              onTap: () => _showCancelWarning(),
+              child: const Icon(Icons.close),
+            )
+          ],
+        ),
+      ),
+      body: body,
+    );
+  }
 }
