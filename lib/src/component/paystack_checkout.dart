@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:paystack_standard/src/component/xdialog.dart';
 import 'package:paystack_standard/src/component/xwarning_dialog.dart';
@@ -10,7 +13,8 @@ const paystackColor = Color(0xFF09A5DB);
 
 class PaystackCheckout extends StatefulWidget {
   final String checkoutUrl;
-  final Widget Function({required Widget child, VoidCallback? onCanceled})? viewBuilder;
+  final Widget Function({required Widget child, VoidCallback? onCanceled})?
+      viewBuilder;
 
   const PaystackCheckout(
       {super.key, required this.checkoutUrl, this.viewBuilder});
@@ -40,6 +44,9 @@ class _State extends State<PaystackCheckout> {
             },
             onUrlChange: (UrlChange urlChange) {},
             onPageStarted: (String url) {
+              if (kDebugMode) {
+                log("Current page: $url");
+              }
               if (url.contains("?trxref=")) {
                 Uri uri = Uri.parse(url);
                 _exit(
@@ -131,7 +138,10 @@ class _State extends State<PaystackCheckout> {
     );
 
     if (widget.viewBuilder != null) {
-      return widget.viewBuilder!(child: body, onCanceled: () => _showCancelWarning(),);
+      return widget.viewBuilder!(
+        child: body,
+        onCanceled: () => _showCancelWarning(),
+      );
     }
 
     return Scaffold(
