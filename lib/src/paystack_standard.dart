@@ -45,6 +45,7 @@ class PaystackStandard {
     Color? barrierColor,
     BoxConstraints? constraints,
     bool useSafeArea = false,
+    Widget Function({required Widget child, void Function()? onCanceled})? viewBuilder,
   }) {
     return showModalBottomSheet<CheckoutResponse>(
       context: context,
@@ -57,7 +58,7 @@ class PaystackStandard {
       barrierColor: barrierColor,
       constraints: constraints,
       useSafeArea: useSafeArea,
-      builder: (_) => PaystackCheckout(checkoutUrl: checkoutUrl),
+      builder: (_) => PaystackCheckout(checkoutUrl: checkoutUrl, viewBuilder: viewBuilder),
     );
   }
 }

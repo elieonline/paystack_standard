@@ -131,7 +131,7 @@ class _State extends State<PaystackCheckout> {
     );
 
     if (widget.viewBuilder != null) {
-      widget.viewBuilder!(child: body, onCanceled: _showCancelWarning());
+      return widget.viewBuilder!(child: body, onCanceled: _showCancelWarning());
     }
 
     return Scaffold(
